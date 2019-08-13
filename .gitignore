@@ -1,0 +1,11 @@
+*.classpath
+*.project
+*.iml
+*.log
+*.properties
+
+hibernate.cfg.xml
+
+.settings/
+target/
+.idea/
