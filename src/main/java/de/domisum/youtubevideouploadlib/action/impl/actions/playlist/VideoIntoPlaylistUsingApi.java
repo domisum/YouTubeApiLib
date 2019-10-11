@@ -8,7 +8,6 @@ import com.google.api.services.youtube.model.ResourceId;
 import de.domisum.youtubevideouploadlib.action.impl.AuthorizedYouTubeApiClient;
 import de.domisum.youtubevideouploadlib.action.playlist.VideoIntoPlaylistInserter;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.Validate;
 
 import java.io.IOException;
 
@@ -21,10 +20,9 @@ public class VideoIntoPlaylistUsingApi implements VideoIntoPlaylistInserter
 
 
 	// UPLOAD
-	@Override public void insert(String playlistId, String videoId, InsertionPosition insertionPosition) throws IOException
+	@Override
+	public void insert(String playlistId, String videoId, InsertionPosition insertionPosition) throws IOException
 	{
-		Validate.notNull(insertionPosition);
-
 		PlaylistItem playlistItem = createPlaylistItem(playlistId, videoId, insertionPosition);
 		Insert playlistItemsInsertRequest = createInsertRequest(playlistItem);
 		playlistItemsInsertRequest.execute();
