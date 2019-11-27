@@ -7,10 +7,11 @@ import lombok.Getter;
 public class YouTubeApiCredentials
 {
 
-	@Getter private final String channelId;
-
-	@Getter private final String clientId;
-	@Getter private final String clientSecret;
-	@Getter private final String refreshToken;
+	@Getter
+	private final String clientId;
+	@Getter
+	private final String clientSecret;
+	@Getter
+	private final String refreshToken;
 
 }
