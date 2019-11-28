@@ -9,6 +9,7 @@ import java.util.Map;
 @ToString
 public class VideoMetricSnapshot
 {
+
 	// ATTRIBUTES
 	private final Map<Metric, Long> metrics;
 
@@ -17,7 +18,7 @@ public class VideoMetricSnapshot
 	public VideoMetricSnapshot(Map<Metric, Long> metrics)
 	{
 		for(Metric metric : Metric.values())
-			Validate.isTrue(metrics.containsKey(metric), "metrics missing metric "+metric);
+			Validate.isTrue(metrics.containsKey(metric), "metrics map missing metric "+metric);
 
 		this.metrics = new HashMap<>(metrics);
 	}
