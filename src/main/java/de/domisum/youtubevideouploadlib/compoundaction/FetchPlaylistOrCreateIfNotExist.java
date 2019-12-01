@@ -25,7 +25,8 @@ public class FetchPlaylistOrCreateIfNotExist
 
 
 	// UPLOAD
-	@API public String fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	@API
+	public String fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
 	{
 		Optional<String> playlistIdOptional = getPreexistingPlaylistId(youTubePlaylistSpec);
 		if(playlistIdOptional.isPresent())

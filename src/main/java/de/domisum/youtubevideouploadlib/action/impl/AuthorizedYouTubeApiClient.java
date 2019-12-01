@@ -20,7 +20,8 @@ public class AuthorizedYouTubeApiClient
 	private static final Duration TIMEOUT = Duration.ofMinutes(2);
 
 	// REFERENCES
-	@Getter private final YouTubeApiCredentials youTubeApiCredentials;
+	@Getter
+	private final YouTubeApiCredentials youTubeApiCredentials;
 
 
 	// GETTERS

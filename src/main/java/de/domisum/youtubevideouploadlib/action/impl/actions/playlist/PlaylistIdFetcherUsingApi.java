@@ -30,7 +30,8 @@ public class PlaylistIdFetcherUsingApi implements PlaylistIdFetcher
 
 
 	// FETCH
-	@Override public Optional<String> fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	@Override
+	public Optional<String> fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
 	{
 		String nextPageToken = null;
 		do

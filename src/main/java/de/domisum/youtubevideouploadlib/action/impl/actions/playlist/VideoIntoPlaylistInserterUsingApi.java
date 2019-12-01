@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class VideoIntoPlaylistUsingApi implements VideoIntoPlaylistInserter
+public class VideoIntoPlaylistInserterUsingApi implements VideoIntoPlaylistInserter
 {
 
 	// REFERENCES

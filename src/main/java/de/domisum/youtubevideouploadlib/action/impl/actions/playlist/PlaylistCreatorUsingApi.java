@@ -21,7 +21,8 @@ public class PlaylistCreatorUsingApi implements PlaylistCreator
 
 
 	// UPLOAD
-	@Override public String create(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	@Override
+	public String create(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
 	{
 		Playlist playlist = createRequestPlaylist(youTubePlaylistSpec);
 
