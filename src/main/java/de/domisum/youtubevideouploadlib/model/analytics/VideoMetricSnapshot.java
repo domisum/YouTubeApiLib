@@ -1,5 +1,6 @@
 package de.domisum.youtubevideouploadlib.model.analytics;
 
+import lombok.Getter;
 import lombok.ToString;
 import org.apache.commons.lang3.Validate;
 
@@ -12,15 +13,18 @@ public class VideoMetricSnapshot
 
 	// ATTRIBUTES
 	private final Map<Metric, Long> metrics;
+	@Getter
+	private final boolean monetized;
 
 
 	// INIT
-	public VideoMetricSnapshot(Map<Metric, Long> metrics)
+	public VideoMetricSnapshot(Map<Metric, Long> metrics, boolean monetized)
 	{
 		for(Metric metric : Metric.values())
 			Validate.isTrue(metrics.containsKey(metric), "metrics map missing metric "+metric);
 
 		this.metrics = new HashMap<>(metrics);
+		this.monetized = monetized;
 	}
 
 

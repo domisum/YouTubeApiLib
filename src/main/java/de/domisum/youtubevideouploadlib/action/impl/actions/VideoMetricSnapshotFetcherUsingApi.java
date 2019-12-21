@@ -14,10 +14,13 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public class VideoMetricSnapshotFetcherUsingApi implements VideoMetricSnapshotFetcher
@@ -29,11 +32,11 @@ public class VideoMetricSnapshotFetcherUsingApi implements VideoMetricSnapshotFe
 
 	// FETCH
 	@Override
-	public VideoMetricSnapshot fetch(String videoId) throws IOException
+	public VideoMetricSnapshot fetch(String videoId, boolean monetary) throws IOException
 	{
 		Query query = authorizedYouTubeApiClient.getYouTubeAnalyticsApiClient().reports().query();
 		query.setIds("channel==MINE");
-		query.setMetrics(createMetricsString());
+		query.setMetrics(createMetricsString(monetary));
 		query.setFilters("video=="+videoId);
 		query.setStartDate("2000-01-01");
 		query.setEndDate("2099-01-01");
@@ -41,18 +44,29 @@ public class VideoMetricSnapshotFetcherUsingApi implements VideoMetricSnapshotFe
 		QueryResponse response = query.execute();
 
 		Map<Metric, Long> metrics = new HashMap<>();
-		for(Metric metric : Metric.values())
+		metrics.put(Metric.REVENUE_DOLLAR_CENT, 0L);
+		for(Metric metric : getMetrics(monetary))
 			metrics.put(metric, parseMetric(response, metric));
 
-		return new VideoMetricSnapshot(metrics);
+		return new VideoMetricSnapshot(metrics, monetary);
 	}
 
-	private String createMetricsString()
+	private String createMetricsString(boolean monetary)
 	{
 		List<String> youTubeMetricNames = new ArrayList<>();
-		for(Metric metric : Metric.values())
+		for(Metric metric : getMetrics(monetary))
 			youTubeMetricNames.add(getMetricYouTubeName(metric));
 		return StringUtil.listToString(youTubeMetricNames, ",");
+	}
+
+	private Set<Metric> getMetrics(boolean monetary)
+	{
+		Set<Metric> metrics = new HashSet<>();
+		metrics.addAll(Arrays.asList(Metric.values()));
+		if(!monetary)
+			metrics.remove(Metric.REVENUE_DOLLAR_CENT);
+
+		return metrics;
 	}
 
 	private String getMetricYouTubeName(Metric metric)
