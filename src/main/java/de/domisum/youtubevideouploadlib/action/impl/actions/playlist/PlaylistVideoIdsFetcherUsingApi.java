@@ -20,7 +20,8 @@ public class PlaylistVideoIdsFetcherUsingApi implements PlaylistVideoIdsFetcher
 
 
 	// UPLOAD
-	@Override public List<String> fetch(String playlistId, int maxNrOfVideos) throws IOException
+	@Override
+	public List<String> fetch(String playlistId, int maxNrOfVideos) throws IOException
 	{
 		PlaylistItems.List listRequest = createBaseRequest(playlistId);
 		return fetchVideoIdsUsingRequest(listRequest, maxNrOfVideos);
@@ -49,7 +50,10 @@ public class PlaylistVideoIdsFetcherUsingApi implements PlaylistVideoIdsFetcher
 
 	private PlaylistItems.List createBaseRequest(String playlistId) throws IOException
 	{
-		PlaylistItems.List listRequest = authorizedYouTubeApiClient.getYouTubeApiClient().playlistItems().list("snippet,contentDetails");
+		PlaylistItems.List listRequest = authorizedYouTubeApiClient
+				.getYouTubeApiClient()
+				.playlistItems()
+				.list("snippet,contentDetails");
 		listRequest.setMaxResults(50L);
 		listRequest.setPlaylistId(playlistId);
 
