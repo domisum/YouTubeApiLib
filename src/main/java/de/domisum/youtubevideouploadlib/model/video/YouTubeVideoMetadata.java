@@ -20,16 +20,23 @@ public class YouTubeVideoMetadata
 
 
 	// CONSTANTS
-	@API public static final int MAX_TITLE_LENGTH = 100;
-	@API public static final int MAX_DESCRIPTION_LENGTH = 5000;
-	@API public static final int MAX_TAGS_LENGTH = 500;
+	@API
+	public static final int MAX_TITLE_LENGTH = 100;
+	@API
+	public static final int MAX_DESCRIPTION_LENGTH = 5000;
+	@API
+	public static final int MAX_TAGS_LENGTH = 500;
 
 
 	// ATTRIBUTES
-	@Getter private final String title;
-	@Getter private final String description;
-	@Getter private final List<String> tags;
-	@Getter private final VideoCategory category;
+	@Getter
+	private final String title;
+	@Getter
+	private final String description;
+	@Getter
+	private final List<String> tags;
+	@Getter
+	private final VideoCategory category;
 
 
 	// VALIDATION
@@ -40,7 +47,8 @@ public class YouTubeVideoMetadata
 		validateTags(tags);
 	}
 
-	@API public static void validateTitle(CharSequence title)
+	@API
+	public static void validateTitle(CharSequence title)
 	{
 		int titleLength = title.length();
 
@@ -52,7 +60,8 @@ public class YouTubeVideoMetadata
 		logger.info("title length: {} (max: {})", titleLength, MAX_TITLE_LENGTH);
 	}
 
-	@API public static void validateDescription(CharSequence description)
+	@API
+	public static void validateDescription(CharSequence description)
 	{
 		int descriptionLength = description.length();
 
@@ -64,7 +73,8 @@ public class YouTubeVideoMetadata
 		logger.info("description length: {} (max: {})", descriptionLength, MAX_DESCRIPTION_LENGTH);
 	}
 
-	@API public static void validateTags(Iterable<String> tags)
+	@API
+	public static void validateTags(Iterable<String> tags)
 	{
 		int tagsLength = 0;
 		for(String tag : tags)

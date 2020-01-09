@@ -3,8 +3,8 @@ package de.domisum.youtubevideouploadlib.action.impl.actions;
 import com.google.api.services.youtube.YouTube.Videos.Update;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
-import de.domisum.youtubevideouploadlib.action.videometadata.VideoMetadataSetter;
 import de.domisum.youtubevideouploadlib.action.impl.AuthorizedYouTubeApiClient;
+import de.domisum.youtubevideouploadlib.action.videometadata.VideoMetadataSetter;
 import de.domisum.youtubevideouploadlib.model.video.YouTubeVideoMetadata;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,8 @@ public class VideoMetadataSetterUsingApi implements VideoMetadataSetter
 
 
 	// SET
-	@Override public void setMetadata(String videoId, YouTubeVideoMetadata metadata) throws IOException
+	@Override
+	public void setMetadata(String videoId, YouTubeVideoMetadata metadata) throws IOException
 	{
 		Video video = new Video();
 		video.setId(videoId);

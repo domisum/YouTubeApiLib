@@ -9,7 +9,9 @@ import lombok.ToString;
 public class YouTubeVideo
 {
 
-	@Getter private final VideoStream videoStream;
-	@Getter private final YouTubeVideoMetadata metadata;
+	@Getter
+	private final VideoStream videoStream;
+	@Getter
+	private final YouTubeVideoMetadata metadata;
 
 }

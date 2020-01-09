@@ -3,8 +3,8 @@ package de.domisum.youtubevideouploadlib.action.impl.actions;
 import com.google.api.services.youtube.YouTube.Videos.List;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
-import de.domisum.youtubevideouploadlib.action.videometadata.VideoMetadataFetcher;
 import de.domisum.youtubevideouploadlib.action.impl.AuthorizedYouTubeApiClient;
+import de.domisum.youtubevideouploadlib.action.videometadata.VideoMetadataFetcher;
 import de.domisum.youtubevideouploadlib.model.video.VideoCategory;
 import de.domisum.youtubevideouploadlib.model.video.YouTubeVideoMetadata;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,8 @@ public class VideoMetadataFetcherUsingApi implements VideoMetadataFetcher
 
 
 	// FETCH
-	@Override public YouTubeVideoMetadata fetch(String videoId) throws IOException
+	@Override
+	public YouTubeVideoMetadata fetch(String videoId) throws IOException
 	{
 		List videosListByIdRequest = authorizedYouTubeApiClient.getYouTubeApiClient().videos().list("snippet");
 		videosListByIdRequest.setId(videoId);

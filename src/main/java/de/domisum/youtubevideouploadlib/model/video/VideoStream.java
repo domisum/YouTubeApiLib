@@ -14,12 +14,15 @@ import java.io.UncheckedIOException;
 public class VideoStream
 {
 
-	@Getter private final InputStream inputStream;
-	@Getter private final long length;
+	@Getter
+	private final InputStream inputStream;
+	@Getter
+	private final long length;
 
 
 	// INIT
-	@API public static VideoStream ofFile(File file)
+	@API
+	public static VideoStream ofFile(File file)
 	{
 		try
 		{

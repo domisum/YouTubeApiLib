@@ -25,7 +25,8 @@ public class VideoUploaderUsingApi extends Uploader implements VideoUploader
 
 
 	// UPLOAD
-	@Override public String upload(YouTubeVideo youTubeVideo, PrivacyStatus privacyStatus) throws IOException
+	@Override
+	public String upload(YouTubeVideo youTubeVideo, PrivacyStatus privacyStatus) throws IOException
 	{
 		logger.info("Preparing to upload '{}' to YouTube ({})", youTubeVideo, privacyStatus);
 

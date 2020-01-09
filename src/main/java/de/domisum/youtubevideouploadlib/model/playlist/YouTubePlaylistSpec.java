@@ -12,8 +12,11 @@ import lombok.ToString;
 public class YouTubePlaylistSpec
 {
 
-	@Getter private final String title;
-	@Getter private final String description;
-	@Getter private final PrivacyStatus privacyStatus;
+	@Getter
+	private final String title;
+	@Getter
+	private final String description;
+	@Getter
+	private final PrivacyStatus privacyStatus;
 
 }

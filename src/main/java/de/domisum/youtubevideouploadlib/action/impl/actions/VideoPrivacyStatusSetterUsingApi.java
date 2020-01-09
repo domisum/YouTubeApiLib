@@ -19,7 +19,8 @@ public class VideoPrivacyStatusSetterUsingApi implements VideoPrivacyStatusSette
 
 
 	// SET
-	@Override public void setPrivacyStatus(String videoId, PrivacyStatus privacyStatus) throws IOException
+	@Override
+	public void setPrivacyStatus(String videoId, PrivacyStatus privacyStatus) throws IOException
 	{
 		Video video = new Video();
 		video.setId(videoId);

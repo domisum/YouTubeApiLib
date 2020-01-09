@@ -11,8 +11,10 @@ import lombok.ToString;
 public class YouTubePlaylist
 {
 
-	@Getter private final YouTubePlaylistSpec spec;
-	@Getter private final String playlistId;
+	@Getter
+	private final YouTubePlaylistSpec spec;
+	@Getter
+	private final String playlistId;
 
 
 	// GETTERS

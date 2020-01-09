@@ -16,7 +16,8 @@ public class PlaylistDeleterUsingApi implements PlaylistDeleter
 
 
 	// UPLOAD
-	@Override public void delete(String playlistId) throws IOException
+	@Override
+	public void delete(String playlistId) throws IOException
 	{
 		YouTube youtube = authorizedYouTubeApiClient.getYouTubeApiClient();
 		youtube.playlists().delete(playlistId).execute();

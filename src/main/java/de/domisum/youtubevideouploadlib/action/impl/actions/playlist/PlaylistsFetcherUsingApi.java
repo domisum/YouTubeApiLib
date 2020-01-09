@@ -34,7 +34,8 @@ public class PlaylistsFetcherUsingApi implements PlaylistsFetcher
 
 
 	// FETCH
-	@Override public Collection<YouTubePlaylist> fetchAll() throws IOException
+	@Override
+	public Collection<YouTubePlaylist> fetchAll() throws IOException
 	{
 		java.util.List<YouTubePlaylist> playlists = new ArrayList<>();
 
