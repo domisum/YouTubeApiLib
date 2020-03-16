@@ -1,7 +1,7 @@
-YouTubeVideoUploadLib
+YouTubeApiLib
 ==================
 
-YouTubeVideoUploadLib is a high level wrapper of the YouTube API, 
+YouTubeApiLib is a high level wrapper of the YouTube API, 
 enabling the user to create and edit videos, playlists and more.
 
 Its features simply wrap the official API.
