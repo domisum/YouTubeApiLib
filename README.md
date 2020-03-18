@@ -30,12 +30,12 @@ VideoUploader videoUploader = new VideoUploaderUsingApi(apiClient);
 
 
 VideoStream videoStream = VideoStream.ofFile(new File("myFile.flv"));
-YouTubeVideoMetadata videoMetadata = new YouTubeVideoMetadata("Title",
+YouTubeVideoMetadata videoMetaData = new YouTubeVideoMetadata("Title",
 		"description",
 		Arrays.asList("tags", "moreTags"),
 		VideoCategory.COMEDY
 );
-YouTubeVideo youTubeVideo = new YouTubeVideo(videoStream, videoMetadata);
+YouTubeVideo youTubeVideo = new YouTubeVideo(videoStream, videoMetaData);
 
 String videoId = videoUploader.upload(youTubeVideo, PrivacyStatus.PUBLIC);
 ```
