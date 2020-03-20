@@ -31,11 +31,11 @@ public class FetchPlaylistOrCreateIfNotExist
 		Optional<String> playlistIdOptional = getPreexistingPlaylistId(youTubePlaylistSpec);
 		if(playlistIdOptional.isPresent())
 		{
-			logger.info("playlist {} already exists, returning id {}", youTubePlaylistSpec, playlistIdOptional.get());
+			logger.info("Playlist {} already exists, returning id {}", youTubePlaylistSpec, playlistIdOptional.get());
 			return playlistIdOptional.get();
 		}
 
-		logger.info("playlist {} doesn't exists, creating", youTubePlaylistSpec);
+		logger.info("Playlist {} doesn't exists, creating", youTubePlaylistSpec);
 		return createNewPlaylist(youTubePlaylistSpec);
 	}
 
