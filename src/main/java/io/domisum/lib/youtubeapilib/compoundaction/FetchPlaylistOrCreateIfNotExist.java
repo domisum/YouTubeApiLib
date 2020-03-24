@@ -1,6 +1,6 @@
 package io.domisum.lib.youtubeapilib.compoundaction;
 
-import io.domisum.lib.auxiliumlib.util.java.annotations.API;
+import io.domisum.lib.auxiliumlib.annotations.API;
 import io.domisum.lib.youtubeapilib.action.playlist.PlaylistCreator;
 import io.domisum.lib.youtubeapilib.action.playlist.PlaylistIdFetcher;
 import io.domisum.lib.youtubeapilib.model.playlist.YouTubePlaylistSpec;

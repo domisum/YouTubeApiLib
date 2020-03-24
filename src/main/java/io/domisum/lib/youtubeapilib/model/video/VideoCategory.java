@@ -1,6 +1,6 @@
 package io.domisum.lib.youtubeapilib.model.video;
 
-import io.domisum.lib.auxiliumlib.util.java.annotations.API;
+import io.domisum.lib.auxiliumlib.annotations.API;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

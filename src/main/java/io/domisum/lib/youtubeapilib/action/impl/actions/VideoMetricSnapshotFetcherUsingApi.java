@@ -4,7 +4,7 @@ import com.google.api.services.youtubeAnalytics.v2.YouTubeAnalytics.Reports.Quer
 import com.google.api.services.youtubeAnalytics.v2.model.QueryResponse;
 import com.google.api.services.youtubeAnalytics.v2.model.ResultTableColumnHeader;
 import io.domisum.lib.auxiliumlib.util.StringUtil;
-import io.domisum.lib.auxiliumlib.util.java.exceptions.IncompleteCodeError;
+import io.domisum.lib.auxiliumlib.exceptions.IncompleteCodeError;
 import io.domisum.lib.youtubeapilib.action.VideoMetricSnapshotFetcher;
 import io.domisum.lib.youtubeapilib.action.impl.AuthorizedYouTubeApiClient;
 import io.domisum.lib.youtubeapilib.exceptions.VideoDoesNotExistException;

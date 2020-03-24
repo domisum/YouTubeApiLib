@@ -2,7 +2,7 @@ package io.domisum.lib.youtubeapilib.action.impl.actions.upload;
 
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
-import io.domisum.lib.auxiliumlib.util.java.exceptions.ShouldNeverHappenError;
+import io.domisum.lib.auxiliumlib.exceptions.ShouldNeverHappenError;
 import io.domisum.lib.auxiliumlib.util.math.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

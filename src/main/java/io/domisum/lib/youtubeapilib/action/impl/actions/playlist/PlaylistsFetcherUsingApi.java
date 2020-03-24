@@ -4,7 +4,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTube.Playlists.List;
 import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
-import io.domisum.lib.auxiliumlib.util.java.annotations.API;
+import io.domisum.lib.auxiliumlib.annotations.API;
 import io.domisum.lib.youtubeapilib.action.impl.AuthorizedYouTubeApiClient;
 import io.domisum.lib.youtubeapilib.action.playlist.PlaylistsFetcher;
 import io.domisum.lib.youtubeapilib.model.PrivacyStatus;
