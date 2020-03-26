@@ -5,7 +5,8 @@ import java.time.Duration;
 
 public interface VideoDurationFetcher
 {
-
-	Duration fetch(String videoId) throws IOException;
-
+	
+	Duration fetch(String videoId)
+			throws IOException;
+	
 }

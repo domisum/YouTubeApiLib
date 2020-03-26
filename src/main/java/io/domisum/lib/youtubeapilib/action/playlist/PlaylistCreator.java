@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public interface PlaylistCreator
 {
-
-	String create(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException;
-
+	
+	String create(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException;
+	
 }

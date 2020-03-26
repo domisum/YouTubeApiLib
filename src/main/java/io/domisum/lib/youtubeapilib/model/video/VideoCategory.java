@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum VideoCategory
 {
-
+	
 	// @formatter:off
 	@API FILM_AND_ANIMATION(1),
 	@API AUTOS_AND_VEHICLES(2),
@@ -41,17 +41,20 @@ public enum VideoCategory
 	@API SHOWS(43),
 	@API TRAILERS(44);
 	// @formatter:on
-
+	
+	
+	// ATTRIBUTES
 	public final int categoryId;
-
-
+	
+	
+	// INIT
 	public static VideoCategory fromCategoryId(int categoryId)
 	{
-		for(VideoCategory category : values())
+		for(var category : values())
 			if(category.categoryId == categoryId)
 				return category;
-
+		
 		throw new IllegalArgumentException("no category with id "+categoryId);
 	}
-
+	
 }

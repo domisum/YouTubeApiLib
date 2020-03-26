@@ -1,10 +1,7 @@
 package io.domisum.lib.youtubeapilib.action.impl.actions.playlist;
 
-import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.YouTube.Playlists.List;
 import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
-import com.google.api.services.youtube.model.PlaylistSnippet;
 import io.domisum.lib.youtubeapilib.action.impl.AuthorizedYouTubeApiClient;
 import io.domisum.lib.youtubeapilib.action.playlist.PlaylistIdFetcher;
 import io.domisum.lib.youtubeapilib.model.playlist.YouTubePlaylistSpec;
@@ -16,75 +13,77 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class PlaylistIdFetcherUsingApi implements PlaylistIdFetcher
+public class PlaylistIdFetcherUsingApi
+		implements PlaylistIdFetcher
 {
-
+	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-
-
+	
+	
 	// CONSTANTS
-	private static final long MAX_RESULTS_MAX = 50L;
-
+	private static final long MAX_RESULTS_LIMIT = 50L;
+	
 	// REFERENCES
 	private final AuthorizedYouTubeApiClient authorizedYouTubeApiClient;
-
-
+	
+	
 	// FETCH
 	@Override
-	public Optional<String> fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	public Optional<String> fetch(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException
 	{
 		String nextPageToken = null;
 		do
 		{
-			PlaylistListResponse response = fetchPlaylists(nextPageToken);
-
-			Optional<String> playlistIdOptional = extractPlaylist(response, youTubePlaylistSpec);
+			var response = fetchPlaylists(nextPageToken);
+			
+			var playlistIdOptional = extractPlaylist(response, youTubePlaylistSpec);
 			if(playlistIdOptional.isPresent())
 				return playlistIdOptional;
-
+			
 			nextPageToken = response.getNextPageToken();
 			logger.debug("playlist wasn't contained in returned playlists, next page token: {}", nextPageToken);
 		}
 		while(nextPageToken != null);
-
+		
 		logger.debug("no next page token known, playlist doesn't exist");
 		return Optional.empty();
 	}
-
-	private PlaylistListResponse fetchPlaylists(String pageToken) throws IOException
+	
+	private PlaylistListResponse fetchPlaylists(String pageToken)
+			throws IOException
 	{
 		logger.debug("Fetching own playlists with page token '{}'", pageToken);
-
-		YouTube youTube = authorizedYouTubeApiClient.getYouTubeApiClient();
-
-		List playlistsListMineRequest = youTube.playlists().list("snippet,contentDetails");
-		playlistsListMineRequest.setMine(true);
-		playlistsListMineRequest.setMaxResults(MAX_RESULTS_MAX);
+		
+		var youTube = authorizedYouTubeApiClient.getYouTubeApiClient();
+		var playlistsListRequest = youTube.playlists().list("snippet,contentDetails");
+		playlistsListRequest.setMine(true);
+		playlistsListRequest.setMaxResults(MAX_RESULTS_LIMIT);
 		if(pageToken != null)
-			playlistsListMineRequest.setPageToken(pageToken);
-
-		return playlistsListMineRequest.execute();
+			playlistsListRequest.setPageToken(pageToken);
+		
+		return playlistsListRequest.execute();
 	}
-
+	
 	private Optional<String> extractPlaylist(PlaylistListResponse response, YouTubePlaylistSpec youTubePlaylistSpec)
 	{
-		for(Playlist playlist : response.getItems())
+		for(var playlist : response.getItems())
 			if(doesPlaylistMatch(youTubePlaylistSpec, playlist))
 			{
 				String playlistId = playlist.getId();
 				logger.debug("found playlist, id: {}", playlistId);
 				return Optional.of(playlistId);
 			}
-
+		
 		return Optional.empty();
 	}
-
-
+	
+	
 	// CONDITION UTIL
 	private boolean doesPlaylistMatch(YouTubePlaylistSpec youTubePlaylistSpec, Playlist playlist)
 	{
-		PlaylistSnippet snippet = playlist.getSnippet();
+		var snippet = playlist.getSnippet();
 		return snippet.getTitle().equalsIgnoreCase(youTubePlaylistSpec.getTitle());
 	}
-
+	
 }

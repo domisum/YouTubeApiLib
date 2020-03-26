@@ -7,7 +7,8 @@ import java.util.Collection;
 
 public interface PlaylistsFetcher
 {
-
-	Collection<YouTubePlaylist> fetchAll() throws IOException;
-
+	
+	Collection<YouTubePlaylist> fetchAll()
+			throws IOException;
+	
 }

@@ -11,26 +11,34 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class VideoPrivacyStatusSetterUsingApi implements VideoPrivacyStatusSetter
+public class VideoPrivacyStatusSetterUsingApi
+		implements VideoPrivacyStatusSetter
 {
-
+	
 	// DEPENDENCIES
 	private final AuthorizedYouTubeApiClient authorizedYouTubeApiClient;
-
-
+	
+	
 	// SET
 	@Override
-	public void setPrivacyStatus(String videoId, PrivacyStatus privacyStatus) throws IOException
+	public void setPrivacyStatus(String videoId, PrivacyStatus privacyStatus)
+			throws IOException
 	{
-		Video video = new Video();
-		video.setId(videoId);
-
-		VideoStatus status = new VideoStatus();
-		video.setStatus(status);
-		status.setPrivacyStatus(privacyStatus.name());
-
-		Update videosUpdateRequest = authorizedYouTubeApiClient.getYouTubeApiClient().videos().update("status", video);
+		var videosUpdateRequest = createRequest(videoId, privacyStatus);
 		videosUpdateRequest.execute();
 	}
-
+	
+	private Update createRequest(String videoId, PrivacyStatus privacyStatus)
+			throws IOException
+	{
+		var video = new Video();
+		video.setId(videoId);
+		
+		var status = new VideoStatus();
+		status.setPrivacyStatus(privacyStatus.name());
+		video.setStatus(status);
+		
+		return authorizedYouTubeApiClient.getYouTubeApiClient().videos().update("status", video);
+	}
+	
 }

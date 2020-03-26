@@ -10,33 +10,28 @@ import java.util.Map;
 @ToString
 public class VideoMetricSnapshot
 {
-
+	
 	// ATTRIBUTES
-	private final Map<Metric, Long> metrics;
+	private final Map<Metric,Long> metrics;
 	@Getter
-	private final boolean monetized;
-
-
+	private final boolean monetary;
+	
+	
 	// INIT
-	public VideoMetricSnapshot(Map<Metric, Long> metrics, boolean monetized)
+	public VideoMetricSnapshot(Map<Metric,Long> metrics, boolean monetary)
 	{
-		for(Metric metric : Metric.values())
+		for(var metric : Metric.values())
 			Validate.isTrue(metrics.containsKey(metric), "metrics map missing metric "+metric);
-
+		
 		this.metrics = new HashMap<>(metrics);
-		this.monetized = monetized;
+		this.monetary = monetary;
 	}
-
-
+	
+	
 	// GETTERS
-	public Map<Metric, Long> getMetrics()
-	{
-		return new HashMap<>(metrics);
-	}
-
 	public long getMetricValue(Metric metric)
 	{
 		return metrics.get(metric);
 	}
-
+	
 }

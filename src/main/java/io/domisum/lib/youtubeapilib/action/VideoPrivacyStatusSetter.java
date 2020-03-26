@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public interface VideoPrivacyStatusSetter
 {
-
-	void setPrivacyStatus(String videoId, PrivacyStatus privacyStatus) throws IOException;
-
+	
+	void setPrivacyStatus(String videoId, PrivacyStatus privacyStatus)
+			throws IOException;
+	
 }

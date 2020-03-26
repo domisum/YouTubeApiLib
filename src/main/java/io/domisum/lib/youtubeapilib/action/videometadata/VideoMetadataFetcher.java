@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public interface VideoMetadataFetcher
 {
-
-	YouTubeVideoMetadata fetch(String videoId) throws IOException;
-
+	
+	YouTubeVideoMetadata fetch(String videoId)
+			throws IOException;
+	
 }

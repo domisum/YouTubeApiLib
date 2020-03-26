@@ -6,7 +6,11 @@ import java.io.IOException;
 
 public interface VideoMetricSnapshotFetcher
 {
-
-	VideoMetricSnapshot fetch(String videoId, boolean monetary) throws IOException;
-
+	
+	VideoMetricSnapshot fetchForMonetizedChannel(String videoId)
+			throws IOException;
+	
+	VideoMetricSnapshot fetchForNotMonetizedChannel(String videoId)
+			throws IOException;
+	
 }

@@ -15,38 +15,41 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FetchPlaylistOrCreateIfNotExist
 {
-
+	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-
-
+	
+	
 	// INPUT
 	private final PlaylistIdFetcher playlistIdFetcher;
 	private final PlaylistCreator playlistCreator;
-
-
+	
+	
 	// UPLOAD
 	@API
-	public String fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	public String fetch(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException
 	{
-		Optional<String> playlistIdOptional = getPreexistingPlaylistId(youTubePlaylistSpec);
+		var playlistIdOptional = getPreexistingPlaylistId(youTubePlaylistSpec);
 		if(playlistIdOptional.isPresent())
 		{
 			logger.info("Playlist {} already exists, returning id {}", youTubePlaylistSpec, playlistIdOptional.get());
 			return playlistIdOptional.get();
 		}
-
+		
 		logger.info("Playlist {} doesn't exists, creating", youTubePlaylistSpec);
 		return createNewPlaylist(youTubePlaylistSpec);
 	}
-
-	private Optional<String> getPreexistingPlaylistId(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	
+	private Optional<String> getPreexistingPlaylistId(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException
 	{
 		return playlistIdFetcher.fetch(youTubePlaylistSpec);
 	}
-
-	private String createNewPlaylist(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	
+	private String createNewPlaylist(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException
 	{
 		return playlistCreator.create(youTubePlaylistSpec);
 	}
-
+	
 }

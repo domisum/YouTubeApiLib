@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public interface VideoMetadataSetter
 {
-
-	void setMetadata(String videoId, YouTubeVideoMetadata metadata) throws IOException;
-
+	
+	void setMetadata(String videoId, YouTubeVideoMetadata metadata)
+			throws IOException;
+	
 }

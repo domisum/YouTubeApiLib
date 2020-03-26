@@ -13,13 +13,13 @@ import java.io.UncheckedIOException;
 @RequiredArgsConstructor
 public class VideoStream
 {
-
+	
 	@Getter
 	private final InputStream inputStream;
 	@Getter
 	private final long length;
-
-
+	
+	
 	// INIT
 	@API
 	public static VideoStream ofFile(File file)
@@ -33,5 +33,5 @@ public class VideoStream
 			throw new UncheckedIOException(e);
 		}
 	}
-
+	
 }

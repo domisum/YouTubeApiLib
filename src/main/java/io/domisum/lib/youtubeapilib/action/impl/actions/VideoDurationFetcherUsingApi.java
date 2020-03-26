@@ -1,8 +1,5 @@
 package io.domisum.lib.youtubeapilib.action.impl.actions;
 
-import com.google.api.services.youtube.YouTube.Videos.List;
-import com.google.api.services.youtube.model.Video;
-import com.google.api.services.youtube.model.VideoListResponse;
 import io.domisum.lib.youtubeapilib.action.impl.AuthorizedYouTubeApiClient;
 import io.domisum.lib.youtubeapilib.action.videometadata.VideoDurationFetcher;
 import io.domisum.lib.youtubeapilib.exceptions.VideoDoesNotExistException;
@@ -12,27 +9,31 @@ import java.io.IOException;
 import java.time.Duration;
 
 @RequiredArgsConstructor
-public class VideoDurationFetcherUsingApi implements VideoDurationFetcher
+public class VideoDurationFetcherUsingApi
+		implements VideoDurationFetcher
 {
-
+	
 	// DEPENDENCIES
 	private final AuthorizedYouTubeApiClient authorizedYouTubeApiClient;
-
-
+	
+	
 	// FETCH
 	@Override
-	public Duration fetch(String videoId) throws IOException
+	public Duration fetch(String videoId)
+			throws IOException
 	{
-		List videosListByIdRequest = authorizedYouTubeApiClient.getYouTubeApiClient().videos().list("contentDetails");
+		var videosListByIdRequest = authorizedYouTubeApiClient.getYouTubeApiClient().videos().list("contentDetails");
 		videosListByIdRequest.setId(videoId);
-
-		VideoListResponse response = videosListByIdRequest.execute();
-		java.util.List<Video> responseItems = response.getItems();
+		
+		var response = videosListByIdRequest.execute();
+		var responseItems = response.getItems();
+		
 		if(responseItems.isEmpty())
-			throw new VideoDoesNotExistException();
-
+			throw new VideoDoesNotExistException(videoId);
 		String durationString = responseItems.get(0).getContentDetails().getDuration();
-		return Duration.parse(durationString);
+		var duration = Duration.parse(durationString);
+		
+		return duration;
 	}
-
+	
 }

@@ -15,33 +15,33 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class AuthorizedYouTubeApiClient
 {
-
+	
 	// CONSTANTS
-	private static final Duration TIMEOUT = Duration.ofMinutes(2);
-
+	private static final Duration TIMEOUT = Duration.ofMinutes(5);
+	
 	// REFERENCES
 	@Getter
 	private final YouTubeApiCredentials youTubeApiCredentials;
-
-
+	
+	
 	// GETTERS
 	public YouTube getYouTubeApiClient()
 	{
-		HttpRequestInitializer requestInitializer = getInitializerWithTimeout(createCredential());
+		var requestInitializer = getInitializerWithTimeout(createCredential());
 		return new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), requestInitializer)
-				.setApplicationName("YouTubeVideoUploadLib")
+				.setApplicationName("YouTubeApiLib")
 				.build();
 	}
-
+	
 	public YouTubeAnalytics getYouTubeAnalyticsApiClient()
 	{
-		HttpRequestInitializer requestInitializer = getInitializerWithTimeout(createCredential());
+		var requestInitializer = getInitializerWithTimeout(createCredential());
 		return new YouTubeAnalytics.Builder(new NetHttpTransport(), new JacksonFactory(), requestInitializer)
-				.setApplicationName("DomisumReplay")
+				.setApplicationName("YouTubeApiLib")
 				.build();
 	}
-
-
+	
+	
 	private HttpRequestInitializer getInitializerWithTimeout(HttpRequestInitializer requestInitializer)
 	{
 		return httpRequest->
@@ -51,17 +51,17 @@ public class AuthorizedYouTubeApiClient
 			httpRequest.setReadTimeout((int) TIMEOUT.toMillis());
 		};
 	}
-
+	
 	private Credential createCredential()
 	{
-		Credential credential = new Builder()
+		var credential = new Builder()
 				.setJsonFactory(new JacksonFactory())
 				.setTransport(new NetHttpTransport())
 				.setClientSecrets(youTubeApiCredentials.getClientId(), youTubeApiCredentials.getClientSecret())
 				.build()
 				.setRefreshToken(youTubeApiCredentials.getRefreshToken());
-
+		
 		return credential;
 	}
-
+	
 }

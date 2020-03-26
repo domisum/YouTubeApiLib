@@ -8,10 +8,10 @@ import lombok.ToString;
 @ToString(includeFieldNames = false, exclude = {"videoStream"})
 public class YouTubeVideo
 {
-
+	
 	@Getter
 	private final VideoStream videoStream;
 	@Getter
 	private final YouTubeVideoMetadata metadata;
-
+	
 }

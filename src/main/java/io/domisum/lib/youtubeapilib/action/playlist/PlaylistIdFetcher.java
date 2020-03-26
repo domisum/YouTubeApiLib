@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface PlaylistIdFetcher
 {
-
-	Optional<String> fetch(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException;
-
+	
+	Optional<String> fetch(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException;
+	
 }

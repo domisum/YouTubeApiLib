@@ -1,8 +1,5 @@
 package io.domisum.lib.youtubeapilib.action.impl.actions.playlist;
 
-import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.YouTube.Playlists.List;
-import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
 import io.domisum.lib.auxiliumlib.annotations.API;
 import io.domisum.lib.youtubeapilib.action.impl.AuthorizedYouTubeApiClient;
@@ -20,73 +17,75 @@ import java.util.Collection;
 
 @API
 @RequiredArgsConstructor
-public class PlaylistsFetcherUsingApi implements PlaylistsFetcher
+public class PlaylistsFetcherUsingApi
+		implements PlaylistsFetcher
 {
-
+	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-
-
+	
+	
 	// CONSTANTS
-	private static final long MAX_RESULTS_MAX = 50L;
-
+	private static final long MAX_RESULTS_LIMIT = 50L;
+	
 	// REFERENCES
 	private final AuthorizedYouTubeApiClient authorizedYouTubeApiClient;
-
-
+	
+	
 	// FETCH
 	@Override
-	public Collection<YouTubePlaylist> fetchAll() throws IOException
+	public Collection<YouTubePlaylist> fetchAll()
+			throws IOException
 	{
-		java.util.List<YouTubePlaylist> playlists = new ArrayList<>();
-
+		var playlists = new ArrayList<YouTubePlaylist>();
+		
 		String nextPageToken = null;
 		do
 		{
-			PlaylistListResponse response = fetchPlaylists(nextPageToken);
+			var response = fetchPlaylists(nextPageToken);
 			playlists.addAll(extractPlaylists(response));
-
+			
 			nextPageToken = response.getNextPageToken();
 			logger.debug("next page token: {}", nextPageToken);
 		}
 		while(nextPageToken != null);
-
+		
 		return playlists;
 	}
-
-	private PlaylistListResponse fetchPlaylists(String pageToken) throws IOException
+	
+	private PlaylistListResponse fetchPlaylists(String pageToken)
+			throws IOException
 	{
 		logger.debug("Fetching own playlists with page token '{}'", pageToken);
-
-		YouTube youTube = authorizedYouTubeApiClient.getYouTubeApiClient();
-
-		List playlistsListMineRequest = youTube.playlists().list("snippet,status");
-		playlistsListMineRequest.setMine(true);
-		playlistsListMineRequest.setMaxResults(MAX_RESULTS_MAX);
+		
+		var youTube = authorizedYouTubeApiClient.getYouTubeApiClient();
+		
+		var playlistsListRequest = youTube.playlists().list("snippet,status");
+		playlistsListRequest.setMine(true);
+		playlistsListRequest.setMaxResults(MAX_RESULTS_LIMIT);
 		if(pageToken != null)
-			playlistsListMineRequest.setPageToken(pageToken);
-
-		return playlistsListMineRequest.execute();
+			playlistsListRequest.setPageToken(pageToken);
+		
+		return playlistsListRequest.execute();
 	}
-
+	
 	private Collection<YouTubePlaylist> extractPlaylists(PlaylistListResponse response)
 	{
-		java.util.List<YouTubePlaylist> playlists = new ArrayList<>();
-
-		for(Playlist playlist : response.getItems())
+		var playlists = new ArrayList<YouTubePlaylist>();
+		
+		for(var playlist : response.getItems())
 		{
 			String title = playlist.getSnippet().getTitle();
 			String description = playlist.getSnippet().getDescription();
 			String privacyStatusString = playlist.getStatus().getPrivacyStatus();
-			PrivacyStatus privacyStatus = PrivacyStatus.parse(privacyStatusString);
-
+			var privacyStatus = PrivacyStatus.parse(privacyStatusString);
 			String playlistId = playlist.getId();
-
-			YouTubePlaylistSpec spec = new YouTubePlaylistSpec(title, description, privacyStatus);
-			YouTubePlaylist youTubePlaylist = new YouTubePlaylist(spec, playlistId);
+			
+			var spec = new YouTubePlaylistSpec(title, description, privacyStatus);
+			var youTubePlaylist = new YouTubePlaylist(spec, playlistId);
 			playlists.add(youTubePlaylist);
 		}
-
+		
 		return playlists;
 	}
-
+	
 }

@@ -11,33 +11,42 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class VideoMetadataSetterUsingApi implements VideoMetadataSetter
+public class VideoMetadataSetterUsingApi
+		implements VideoMetadataSetter
 {
-
+	
 	// DEPENDENCIES
 	private final AuthorizedYouTubeApiClient authorizedYouTubeApiClient;
-
-
+	
+	
 	// SET
 	@Override
-	public void setMetadata(String videoId, YouTubeVideoMetadata metadata) throws IOException
+	public void setMetadata(String videoId, YouTubeVideoMetadata metadata)
+			throws IOException
 	{
-		Video video = new Video();
-		video.setId(videoId);
-		video.setSnippet(createVideoSnippet(metadata));
-
-		Update videosUpdateRequest = authorizedYouTubeApiClient.getYouTubeApiClient().videos().update("snippet", video);
+		var videosUpdateRequest = createRequest(videoId, metadata);
 		videosUpdateRequest.execute();
 	}
-
+	
+	private Update createRequest(String videoId, YouTubeVideoMetadata metadata)
+			throws IOException
+	{
+		var video = new Video();
+		video.setId(videoId);
+		video.setSnippet(createVideoSnippet(metadata));
+		
+		return authorizedYouTubeApiClient.getYouTubeApiClient().videos().update("snippet", video);
+	}
+	
 	private VideoSnippet createVideoSnippet(YouTubeVideoMetadata metadata)
 	{
-		VideoSnippet snippet = new VideoSnippet();
+		var snippet = new VideoSnippet();
 		snippet.setTitle(metadata.getTitle());
 		snippet.setDescription(metadata.getDescription());
 		snippet.setTags(metadata.getTags());
 		snippet.setCategoryId(metadata.getCategory().categoryId+"");
+		
 		return snippet;
 	}
-
+	
 }

@@ -10,17 +10,17 @@ import lombok.ToString;
 @ToString(includeFieldNames = false)
 public class YouTubePlaylist
 {
-
+	
 	@Getter
 	private final YouTubePlaylistSpec spec;
 	@Getter
 	private final String playlistId;
-
-
+	
+	
 	// GETTERS
 	public String getLink()
 	{
 		return "https://www.youtube.com/playlist?list="+playlistId;
 	}
-
+	
 }

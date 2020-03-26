@@ -1,6 +1,5 @@
 package io.domisum.lib.youtubeapilib.action.impl.actions.playlist;
 
-import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTube.Playlists.Insert;
 import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistSnippet;
@@ -13,44 +12,47 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class PlaylistCreatorUsingApi implements PlaylistCreator
+public class PlaylistCreatorUsingApi
+		implements PlaylistCreator
 {
-
+	
 	// DEPENDENCIES
 	private final AuthorizedYouTubeApiClient authorizedYouTubeApiClient;
-
-
+	
+	
 	// UPLOAD
 	@Override
-	public String create(YouTubePlaylistSpec youTubePlaylistSpec) throws IOException
+	public String create(YouTubePlaylistSpec youTubePlaylistSpec)
+			throws IOException
 	{
-		Playlist playlist = createRequestPlaylist(youTubePlaylistSpec);
-
-		Insert playlistsInsertRequest = createInsertRequest(playlist);
-		Playlist response = playlistsInsertRequest.execute();
-
+		var playlist = createRequestPlaylist(youTubePlaylistSpec);
+		
+		var playlistsInsertRequest = createInsertRequest(playlist);
+		var response = playlistsInsertRequest.execute();
+		
 		return response.getId();
 	}
-
+	
 	private Playlist createRequestPlaylist(YouTubePlaylistSpec youTubePlaylistSpec)
 	{
-		Playlist playlist = new Playlist();
-
-		PlaylistSnippet snippet = new PlaylistSnippet();
+		var playlist = new Playlist();
+		
+		var snippet = new PlaylistSnippet();
 		snippet.setTitle(youTubePlaylistSpec.getTitle());
 		snippet.setDescription(youTubePlaylistSpec.getDescription());
 		playlist.setSnippet(snippet);
-
-		PlaylistStatus status = new PlaylistStatus();
+		
+		var status = new PlaylistStatus();
 		status.setPrivacyStatus(youTubePlaylistSpec.getPrivacyStatus().name());
 		playlist.setStatus(status);
 		return playlist;
 	}
-
-	private Insert createInsertRequest(Playlist playlist) throws IOException
+	
+	private Insert createInsertRequest(Playlist playlist)
+			throws IOException
 	{
-		YouTube youtube = authorizedYouTubeApiClient.getYouTubeApiClient();
+		var youtube = authorizedYouTubeApiClient.getYouTubeApiClient();
 		return youtube.playlists().insert("snippet,status", playlist);
 	}
-
+	
 }

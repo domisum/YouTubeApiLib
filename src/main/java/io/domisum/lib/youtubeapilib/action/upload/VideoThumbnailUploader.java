@@ -5,7 +5,8 @@ import java.io.IOException;
 
 public interface VideoThumbnailUploader
 {
-
-	void uploadThumbnail(String videoId, BufferedImage thumbnail) throws IOException;
-
+	
+	void uploadThumbnail(String videoId, BufferedImage thumbnail)
+			throws IOException;
+	
 }
