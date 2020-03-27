@@ -1,11 +1,11 @@
-*.classpath
-*.project
-*.iml
-*.log
-*.properties
+*
 
-hibernate.cfg.xml
+# ignore everything except:
+!/src
+!/.gitignore
+!/pom.xml
+!/LICENSE*
+!/README*
 
-.settings/
-target/
-.idea/
+# but still ignore prototype test classes:
+___*.java
