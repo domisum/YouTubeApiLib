@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class YouTubeApiCredentials
+public class YouTubeApiCredential
 {
 	
 	@Getter

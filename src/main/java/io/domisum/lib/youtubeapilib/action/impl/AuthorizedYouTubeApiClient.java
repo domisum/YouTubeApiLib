@@ -21,7 +21,14 @@ public class AuthorizedYouTubeApiClient
 	
 	// REFERENCES
 	@Getter
-	private final YouTubeApiCredentials youTubeApiCredentials;
+	private final YouTubeApiCredentialProvider youTubeApiCredentialProvider;
+	
+	
+	// INIT
+	public AuthorizedYouTubeApiClient(YouTubeApiCredential youTubeApiCredential)
+	{
+		youTubeApiCredentialProvider = ()->youTubeApiCredential;
+	}
 	
 	
 	// GETTERS
@@ -54,13 +61,14 @@ public class AuthorizedYouTubeApiClient
 	
 	private Credential createCredential()
 	{
+		var youTubeApiCredential = youTubeApiCredentialProvider.get();
+		
 		var credential = new Builder()
 				.setJsonFactory(new JacksonFactory())
 				.setTransport(new NetHttpTransport())
-				.setClientSecrets(youTubeApiCredentials.getClientId(), youTubeApiCredentials.getClientSecret())
+				.setClientSecrets(youTubeApiCredential.getClientId(), youTubeApiCredential.getClientSecret())
 				.build()
-				.setRefreshToken(youTubeApiCredentials.getRefreshToken());
-		
+				.setRefreshToken(youTubeApiCredential.getRefreshToken());
 		return credential;
 	}
 	
