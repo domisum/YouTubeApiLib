@@ -33,6 +33,9 @@ public class VideoDurationFetcherUsingApi
 		String durationString = responseItems.get(0).getContentDetails().getDuration();
 		var duration = Duration.parse(durationString);
 		
+		if(duration.isZero())
+			throw new IOException("YouTube API returned video length of zero, video is probably still processing");
+		
 		return duration;
 	}
 	
