@@ -28,8 +28,12 @@ public class PlaylistVideoIdsFetcherUsingApi
 	public List<String> fetch(YouTubeApiCredentials credentials, String playlistId, Integer maxNrOfVideos)
 			throws IOException
 	{
+		int maxNrOfVideosInt = maxNrOfVideos == null ? Integer.MAX_VALUE : maxNrOfVideos;
+		
 		var listRequest = createBaseRequest(credentials, playlistId);
-		return fetchVideoIdsUsingRequest(listRequest, maxNrOfVideos);
+		var videoIds = fetchVideoIdsUsingRequest(listRequest, maxNrOfVideosInt);
+		
+		return videoIds;
 	}
 	
 	private List<String> fetchVideoIdsUsingRequest(PlaylistItems.List listRequest, int maxNrOfVideos)
