@@ -5,7 +5,6 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtubeAnalytics.v2.YouTubeAnalytics;
 import lombok.Getter;
 
 import java.time.Duration;
@@ -19,15 +18,12 @@ public class AuthorizedYouTubeApiClient
 	// API CLIENTS
 	@Getter
 	private final YouTube youTubeDataApiClient;
-	@Getter
-	private final YouTubeAnalytics youTubeAnalyticsApiClient;
 	
 	
 	// INIT
 	public AuthorizedYouTubeApiClient(YouTubeApiCredentials youTubeApiCredentials)
 	{
 		youTubeDataApiClient = buildYouTubeDataApiClient(youTubeApiCredentials);
-		youTubeAnalyticsApiClient = buildYouTubeAnalyticsApiClient(youTubeApiCredentials);
 	}
 	
 	
@@ -38,17 +34,6 @@ public class AuthorizedYouTubeApiClient
 		requestInitializer = addTimeoutToRequestInitializer(requestInitializer);
 		
 		var builder = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), requestInitializer);
-		builder.setApplicationName("YouTubeApiLib");
-		
-		return builder.build();
-	}
-	
-	private YouTubeAnalytics buildYouTubeAnalyticsApiClient(YouTubeApiCredentials youTubeApiCredentials)
-	{
-		var requestInitializer = createAuthorizingRequestInitializer(youTubeApiCredentials);
-		requestInitializer = addTimeoutToRequestInitializer(requestInitializer);
-		
-		var builder = new YouTubeAnalytics.Builder(new NetHttpTransport(), new JacksonFactory(), requestInitializer);
 		builder.setApplicationName("YouTubeApiLib");
 		
 		return builder.build();
