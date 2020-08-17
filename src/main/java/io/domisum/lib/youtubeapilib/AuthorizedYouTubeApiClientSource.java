@@ -1,28 +1,33 @@
-package io.domisum.lib.youtubeapilib.apiclient;
+package io.domisum.lib.youtubeapilib;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential.Builder;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import lombok.Getter;
+import io.domisum.lib.auxiliumlib.datastructures.LazyCache;
 
 import java.time.Duration;
 
-public abstract class AuthorizedYouTubeApiClient<T>
+public abstract class AuthorizedYouTubeApiClientSource<T>
 {
 	
 	// CONSTANTS
 	private static final Duration TIMEOUT = Duration.ofMinutes(5);
 	
-	// API CLIENTS
-	@Getter
-	private final T youTubeApiClient;
+	// CACHE
+	private final LazyCache<YouTubeApiCredentials,T> cachedClients = LazyCache.neverExpire();
 	
 	
-	// INIT
-	public AuthorizedYouTubeApiClient(YouTubeApiCredentials youTubeApiCredentials)
+	// SOURCE
+	public synchronized T getFor(YouTubeApiCredentials credentials)
 	{
-		youTubeApiClient = buildYouTubeApiClient(youTubeApiCredentials);
+		var cachedClientOptional = cachedClients.get(credentials);
+		if(cachedClientOptional.isPresent())
+			return cachedClientOptional.get();
+		
+		var builtYouTubeClient = buildYouTubeApiClient(credentials);
+		cachedClients.set(credentials, builtYouTubeClient);
+		return builtYouTubeClient;
 	}
 	
 	
@@ -38,8 +43,6 @@ public abstract class AuthorizedYouTubeApiClient<T>
 	
 	protected abstract T build(HttpRequestInitializer requestInitializer);
 	
-	
-	// COMPONENT BUILDERS
 	private HttpRequestInitializer createAuthorizingRequestInitializer(YouTubeApiCredentials youTubeApiCredentials)
 	{
 		var credential = new Builder()

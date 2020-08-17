@@ -1,4 +1,4 @@
-package io.domisum.lib.youtubeapilib.apiclient;
+package io.domisum.lib.youtubeapilib;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
