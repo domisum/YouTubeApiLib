@@ -1,25 +1,25 @@
 package io.domisum.lib.youtubeapilib.apiclient.source;
 
 import io.domisum.lib.auxiliumlib.datastructures.LazyCache;
-import io.domisum.lib.youtubeapilib.apiclient.AuthorizedYouTubeApiClient;
+import io.domisum.lib.youtubeapilib.apiclient.AuthorizedYouTubeDataApiClient;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class AuthorizedYouTubeApiClientSourceCache
-		implements AuthorizedYouTubeApiClientSource
+public class AuthorizedYouTubeDataApiClientSourceCache
+		implements AuthorizedYouTubeDataApiClientSource
 {
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource backingSource;
+	private final AuthorizedYouTubeDataApiClientSource backingSource;
 	
 	// STATUS
-	private final LazyCache<YouTubeApiCredentials,AuthorizedYouTubeApiClient> cache = LazyCache.neverExpire();
+	private final LazyCache<YouTubeApiCredentials,AuthorizedYouTubeDataApiClient> cache = LazyCache.neverExpire();
 	
 	
 	// SOURCE
 	@Override
-	public synchronized AuthorizedYouTubeApiClient getFor(YouTubeApiCredentials credentials)
+	public synchronized AuthorizedYouTubeDataApiClient getFor(YouTubeApiCredentials credentials)
 	{
 		var clientFromCacheOptional = cache.get(credentials);
 		if(clientFromCacheOptional.isPresent())

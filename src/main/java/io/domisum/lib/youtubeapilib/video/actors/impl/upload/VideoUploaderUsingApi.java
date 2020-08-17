@@ -7,7 +7,7 @@ import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
 import io.domisum.lib.youtubeapilib.PrivacyStatus;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.video.YouTubeVideo;
 import io.domisum.lib.youtubeapilib.video.actors.upload.VideoUploader;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class VideoUploaderUsingApi
 {
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// UPLOAD
@@ -84,7 +84,7 @@ public class VideoUploaderUsingApi
 	private Insert createUploadRequest(YouTubeApiCredentials credentials, InputStreamContent videoContent, Video videoToUpload)
 			throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var videoInsert = youTubeDataApiClient.videos().insert("snippet,statistics,status", videoToUpload, videoContent);
 		configureMediaHttpUploader(videoInsert.getMediaHttpUploader(), videoContent.getLength());

@@ -3,7 +3,7 @@ package io.domisum.lib.youtubeapilib.playlist.actors.impl;
 import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.playlist.PlaylistSpecification;
 import io.domisum.lib.youtubeapilib.playlist.actors.PlaylistIdFetcher;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class PlaylistIdFetcherUsingApi
 	private static final long MAX_RESULTS_LIMIT = 50L;
 	
 	// REFERENCES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// FETCH
@@ -56,7 +56,7 @@ public class PlaylistIdFetcherUsingApi
 	{
 		logger.debug("Fetching own playlists with page token '{}'", pageToken);
 		
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		var playlistsListRequest = youTubeDataApiClient.playlists().list("snippet,contentDetails");
 		playlistsListRequest.setMine(true);
 		playlistsListRequest.setMaxResults(MAX_RESULTS_LIMIT);

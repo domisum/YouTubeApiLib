@@ -3,7 +3,7 @@ package io.domisum.lib.youtubeapilib.video.actors.impl.upload;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.youtube.YouTube.Thumbnails.Set;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.video.actors.upload.VideoThumbnailUploader;
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ public class VideoThumbnailUploaderUsingApi
 {
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// UPLOAD
@@ -64,7 +64,7 @@ public class VideoThumbnailUploaderUsingApi
 	private Set createApiRequest(YouTubeApiCredentials credentials, String videoId, InputStreamContent imageContent)
 			throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var thumbnailSet = youTubeDataApiClient.thumbnails().set(videoId, imageContent);
 		configureMediaHttpUploader(thumbnailSet.getMediaHttpUploader(), imageContent.getLength());

@@ -5,7 +5,7 @@ import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistSnippet;
 import com.google.api.services.youtube.model.PlaylistStatus;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.playlist.PlaylistSpecification;
 import io.domisum.lib.youtubeapilib.playlist.actors.PlaylistCreator;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class PlaylistCreatorUsingApi
 {
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// UPLOAD
@@ -53,7 +53,7 @@ public class PlaylistCreatorUsingApi
 	private Insert createInsertRequest(YouTubeApiCredentials credentials, Playlist playlist)
 			throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var insert = youTubeDataApiClient.playlists().insert("snippet,status", playlist);
 		return insert;

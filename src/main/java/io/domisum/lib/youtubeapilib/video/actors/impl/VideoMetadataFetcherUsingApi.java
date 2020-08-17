@@ -1,7 +1,7 @@
 package io.domisum.lib.youtubeapilib.video.actors.impl;
 
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.video.VideoCategory;
 import io.domisum.lib.youtubeapilib.video.VideoDoesNotExistException;
 import io.domisum.lib.youtubeapilib.video.YouTubeVideoMetadata;
@@ -16,7 +16,7 @@ public class VideoMetadataFetcherUsingApi
 {
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// FETCH
@@ -24,7 +24,7 @@ public class VideoMetadataFetcherUsingApi
 	public YouTubeVideoMetadata fetch(YouTubeApiCredentials credentials, String videoId)
 			throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var videosListByIdRequest = youTubeDataApiClient.videos().list("snippet");
 		videosListByIdRequest.setId(videoId);

@@ -4,7 +4,7 @@ import com.google.api.services.youtube.YouTube.Videos.Update;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.video.YouTubeVideoMetadata;
 import io.domisum.lib.youtubeapilib.video.actors.VideoMetadataSetter;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class VideoMetadataSetterUsingApi
 {
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// SET
@@ -32,7 +32,7 @@ public class VideoMetadataSetterUsingApi
 	private Update createRequest(YouTubeApiCredentials credentials, String videoId, YouTubeVideoMetadata metadata)
 			throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var video = new Video();
 		video.setId(videoId);

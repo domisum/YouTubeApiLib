@@ -4,12 +4,11 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential.Builder;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.youtube.YouTube;
 import lombok.Getter;
 
 import java.time.Duration;
 
-public class AuthorizedYouTubeApiClient
+public abstract class AuthorizedYouTubeApiClient<T>
 {
 	
 	// CONSTANTS
@@ -17,27 +16,27 @@ public class AuthorizedYouTubeApiClient
 	
 	// API CLIENTS
 	@Getter
-	private final YouTube youTubeDataApiClient;
+	private final T youTubeApiClient;
 	
 	
 	// INIT
 	public AuthorizedYouTubeApiClient(YouTubeApiCredentials youTubeApiCredentials)
 	{
-		youTubeDataApiClient = buildYouTubeDataApiClient(youTubeApiCredentials);
+		youTubeApiClient = buildYouTubeApiClient(youTubeApiCredentials);
 	}
 	
 	
 	// BUILDERS
-	private YouTube buildYouTubeDataApiClient(YouTubeApiCredentials youTubeApiCredentials)
+	private T buildYouTubeApiClient(YouTubeApiCredentials youTubeApiCredentials)
 	{
 		var requestInitializer = createAuthorizingRequestInitializer(youTubeApiCredentials);
 		requestInitializer = addTimeoutToRequestInitializer(requestInitializer);
 		
-		var builder = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), requestInitializer);
-		builder.setApplicationName("YouTubeApiLib");
-		
-		return builder.build();
+		var youTubeApiClient = build(requestInitializer);
+		return youTubeApiClient;
 	}
+	
+	protected abstract T build(HttpRequestInitializer requestInitializer);
 	
 	
 	// COMPONENT BUILDERS

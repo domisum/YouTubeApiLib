@@ -2,7 +2,7 @@ package io.domisum.lib.youtubeapilib.playlist.actors.impl;
 
 import io.domisum.lib.auxiliumlib.annotations.API;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.playlist.PlaylistDoesNotExistException;
 import io.domisum.lib.youtubeapilib.playlist.actors.PlaylistVideoCountFetcher;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class PlaylistVideoCountFetcherUsingApi
 {
 	
 	// REFERENCES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// FETCH
@@ -25,7 +25,7 @@ public class PlaylistVideoCountFetcherUsingApi
 			throws IOException
 	{
 		
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var request = youTubeDataApiClient.playlists().list("contentDetails");
 		request.setId(playlistId);

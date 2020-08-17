@@ -3,7 +3,7 @@ package io.domisum.lib.youtubeapilib.playlist.actors.impl;
 import com.google.api.services.youtube.YouTube.PlaylistItems;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import io.domisum.lib.youtubeapilib.apiclient.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeApiClientSource;
+import io.domisum.lib.youtubeapilib.apiclient.source.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.playlist.actors.PlaylistVideoIdsFetcher;
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +20,7 @@ public class PlaylistVideoIdsFetcherUsingApi
 	private static final long MAX_RESULTS_LIMIT = 50L;
 	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeApiClientSource authorizedYouTubeApiClientSource;
+	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
 	// UPLOAD
@@ -61,7 +61,7 @@ public class PlaylistVideoIdsFetcherUsingApi
 	private PlaylistItems.List createBaseRequest(YouTubeApiCredentials credentials, String playlistId)
 			throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeApiClientSource.getFor(credentials).getYouTubeDataApiClient();
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials).getYouTubeApiClient();
 		
 		var listRequest = youTubeDataApiClient.playlistItems().list("snippet,contentDetails");
 		listRequest.setMaxResults(MAX_RESULTS_LIMIT);
