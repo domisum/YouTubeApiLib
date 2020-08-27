@@ -26,7 +26,7 @@ public abstract class AuthorizedYouTubeApiClientSource<T>
 			return cachedClientOptional.get();
 		
 		var builtYouTubeClient = buildYouTubeApiClient(credentials);
-		cachedClients.set(credentials, builtYouTubeClient);
+		cachedClients.put(credentials, builtYouTubeClient);
 		return builtYouTubeClient;
 	}
 	
