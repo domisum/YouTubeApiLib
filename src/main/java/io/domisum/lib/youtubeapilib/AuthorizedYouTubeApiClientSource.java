@@ -4,10 +4,12 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential.Builder;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.inject.Singleton;
 import io.domisum.lib.auxiliumlib.datastructures.LazyCache;
 
 import java.time.Duration;
 
+@Singleton
 public abstract class AuthorizedYouTubeApiClientSource<T>
 {
 	
