@@ -17,7 +17,7 @@ public abstract class AuthorizedYouTubeApiClientSource<T>
 	private static final Duration TIMEOUT = Duration.ofMinutes(5);
 	
 	// CACHE
-	private final LazyCache<YouTubeApiCredentials,T> cachedClients = LazyCache.neverExpire();
+	private final LazyCache<YouTubeApiCredentials, T> cachedClients = LazyCache.neverExpire();
 	
 	
 	// SOURCE
@@ -48,10 +48,10 @@ public abstract class AuthorizedYouTubeApiClientSource<T>
 	private HttpRequestInitializer createAuthorizingRequestInitializer(YouTubeApiCredentials youTubeApiCredentials)
 	{
 		var credential = new Builder()
-				.setJsonFactory(new JacksonFactory())
-				.setTransport(new NetHttpTransport())
-				.setClientSecrets(youTubeApiCredentials.getClientId(), youTubeApiCredentials.getClientSecret())
-				.build();
+			.setJsonFactory(new JacksonFactory())
+			.setTransport(new NetHttpTransport())
+			.setClientSecrets(youTubeApiCredentials.getClientId(), youTubeApiCredentials.getClientSecret())
+			.build();
 		credential.setRefreshToken(youTubeApiCredentials.getRefreshToken());
 		
 		return credential;
