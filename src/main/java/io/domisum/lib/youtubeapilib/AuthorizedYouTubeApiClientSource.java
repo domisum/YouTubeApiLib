@@ -38,9 +38,7 @@ public abstract class AuthorizedYouTubeApiClientSource<T>
 	{
 		var requestInitializer = createAuthorizingRequestInitializer(youTubeApiCredentials);
 		requestInitializer = addTimeoutToRequestInitializer(requestInitializer);
-		
-		var youTubeApiClient = build(requestInitializer);
-		return youTubeApiClient;
+		return build(requestInitializer);
 	}
 	
 	protected abstract T build(HttpRequestInitializer requestInitializer);
